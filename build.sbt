@@ -8,16 +8,16 @@ val macwire = "com.softwaremill.macwire" %% "macros" % "2.3.3" % "provided"
 val scalaTest = "org.scalatest" %% "scalatest" % "3.1.1" % Test
 
 lazy val `murakumo` = (project in file("."))
-  .aggregate(`murakumo-api`, `murakumo-impl`, `murakumo-stream-api`, `murakumo-stream-impl`)
+  .aggregate(`hello-api`, `hello-impl`, `hello-stream-api`, `hello-stream-impl`)
 
-lazy val `murakumo-api` = (project in file("murakumo-api"))
+lazy val `hello-api` = (project in file("hello-api"))
   .settings(
     libraryDependencies ++= Seq(
       lagomScaladslApi
     )
   )
 
-lazy val `murakumo-impl` = (project in file("murakumo-impl"))
+lazy val `hello-impl` = (project in file("hello-impl"))
   .enablePlugins(LagomScala)
   .settings(
     libraryDependencies ++= Seq(
@@ -29,16 +29,16 @@ lazy val `murakumo-impl` = (project in file("murakumo-impl"))
     )
   )
   .settings(lagomForkedTestSettings)
-  .dependsOn(`murakumo-api`)
+  .dependsOn(`hello-api`)
 
-lazy val `murakumo-stream-api` = (project in file("murakumo-stream-api"))
+lazy val `hello-stream-api` = (project in file("hello-stream-api"))
   .settings(
     libraryDependencies ++= Seq(
       lagomScaladslApi
     )
   )
 
-lazy val `murakumo-stream-impl` = (project in file("murakumo-stream-impl"))
+lazy val `hello-stream-impl` = (project in file("hello-stream-impl"))
   .enablePlugins(LagomScala)
   .settings(
     libraryDependencies ++= Seq(
@@ -47,4 +47,4 @@ lazy val `murakumo-stream-impl` = (project in file("murakumo-stream-impl"))
       scalaTest
     )
   )
-  .dependsOn(`murakumo-stream-api`, `murakumo-api`)
+  .dependsOn(`hello-stream-api`, `hello-api`)
