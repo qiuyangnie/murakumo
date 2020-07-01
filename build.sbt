@@ -8,7 +8,8 @@ val macwire = "com.softwaremill.macwire" %% "macros" % "2.3.3" % "provided"
 val scalaTest = "org.scalatest" %% "scalatest" % "3.1.1" % Test
 
 lazy val `murakumo` = (project in file("."))
-  .aggregate(`hello-api`, `hello-impl`, `hello-stream-api`, `hello-stream-impl`, `auth-api`, `auth-impl`)
+  .aggregate(`hello-api`, `hello-impl`, `hello-stream-api`, `hello-stream-impl`)
+  .aggregate(`auth-api`, `auth-impl`)
 
 lazy val `hello-api` = (project in file("hello-api"))
   .settings(
