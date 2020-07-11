@@ -54,7 +54,8 @@ lazy val `hello-stream-impl` = (project in file("hello-stream-impl"))
 lazy val `auth-api` = (project in file("auth-api"))
   .settings(
     libraryDependencies ++= Seq(
-      lagomScaladslApi
+      lagomScaladslApi,
+      jwt
     )
   )
 
