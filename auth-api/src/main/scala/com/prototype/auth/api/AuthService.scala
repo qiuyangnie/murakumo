@@ -18,6 +18,9 @@ trait AuthService extends Service {
       )
   }
 
+  /**
+    * Example: curl http://localhost:9000/auth/token
+    */
   def token(): ServiceCall[NotUsed, NotUsed]
 
 }
