@@ -8,6 +8,7 @@ import com.prototype.auth.api.model.Role
 
 object UserStorageImpl extends UserStorage {
 
+  // TODO: add database for user authentication.
   override def getUser(username: String, password: String): Future[Option[User]] = 
     Future {
       (username, password) match {
