@@ -27,6 +27,6 @@ class AuthServiceImpl(implicit ec: ExecutionContext) extends AuthService {
     payloadJson.toString()
   }
 
-  override def token(): ServiceCall[TokenRequest, NotUsed] = ServiceCall(_ => Future(NotUsed))
+  override def token(): ServiceCall[TokenRequest, String] = ???
 
 }
