@@ -1,6 +1,6 @@
 package com.prototype.auth.api.model
 
-import play.api.libs.josn.{Format, Json}
+import play.api.libs.json.{Format, Json}
 
 case class TokenRequest(username: String, password: String)
 
