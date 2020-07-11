@@ -21,7 +21,7 @@ trait AuthService extends Service {
   }
 
   /**
-    * Example: curl http://localhost:9000/auth/token
+    * Example: curl -H "Content-Type: application/json" -X POST -d '{"username": "admin", "password": "admin"}' http://localhost:9000/auth/token
     */
   def token(): ServiceCall[TokenRequest, String]
 
