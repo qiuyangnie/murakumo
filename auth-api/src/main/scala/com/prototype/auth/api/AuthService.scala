@@ -4,6 +4,8 @@ import akka.NotUsed
 import com.lightbend.lagom.scaladsl.api.transport.Method
 import com.lightbend.lagom.scaladsl.api.{Descriptor, Service, ServiceAcl, ServiceCall}
 
+import com.prototype.auth.api.model.TokenRequest
+
 trait AuthService extends Service {
 
   override def descriptor: Descriptor = {
@@ -18,6 +20,9 @@ trait AuthService extends Service {
       )
   }
 
-  def token(): ServiceCall[NotUsed, NotUsed]
+  /**
+    * Example: curl -H "Content-Type: application/json" -X POST -d '{"username": "admin", "password": "admin"}' http://localhost:9000/auth/token
+    */
+  def token(): ServiceCall[TokenRequest, String]
 
 }
