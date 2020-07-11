@@ -1,8 +1,8 @@
 package com.prototype.auth.impl
 
-import com.prototype.auth.api.model.User
-
 import scala.concurrent.Future
+
+import com.prototype.auth.api.model.User
 
 trait UserStorage {
   /** Gets a corresponding user with a given username and password.
