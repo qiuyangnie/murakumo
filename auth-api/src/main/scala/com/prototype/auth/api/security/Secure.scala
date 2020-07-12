@@ -18,17 +18,14 @@ object Secure {
       val token: String = authorizationHeader.split(" +").last
       if (JwtUtility.isValidToken(token)) {
         JwtUtility.decodeToken(token).fold {
-          throw Forbidden("You do not have permissions to access this resource.")
+          throw Forbidden("Cannot decode token: you do not have permissions to access this resource.")
         } { payload =>
           val payloadObj: Payload = Json.parse(payload).validate[Payload].get
           val tokenHasExpired: Boolean = Instant.now.getEpochSecond > payloadObj.expiration
-          if (tokenHasExpired) 
-            throw Forbidden("You do not have permissions to access this resource.")
+          if (tokenHasExpired) throw Forbidden("Token has expired: you do not have permissions to access this resource.")
           else serverServicecall
         }
-      } else {
-        throw Forbidden("You do not have permissions to access this resource.")
-      }
+      } else throw Forbidden("Token provided is invalid: you do not have permissions to access this resource.")
     }
 
 }
