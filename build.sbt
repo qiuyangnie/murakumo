@@ -55,6 +55,7 @@ lazy val `auth-api` = (project in file("auth-api"))
   .settings(
     libraryDependencies ++= Seq(
       lagomScaladslApi,
+      lagomScaladslServer,
       jwt
     )
   )
