@@ -18,12 +18,12 @@ import com.prototype.auth.api.utilities.JwtUtility
 class AuthServiceImpl(userStorage: UserStorage)(implicit ec: ExecutionContext) extends AuthService {
 
   private def payload(user: User): String = {
-    val jwtPayload = Payload(
-      issuer     = "qiuyang",
-      subject    = user.principal,
-      audience   = "WebApplication",
-      expiration = Instant.now.getEpochSecond + Duration("30 minutes").toSeconds
-    )
+    val jwtPayload: Payload = 
+      Payload(
+        issuer     = "qiuyang",
+        subject    = user.principal,
+        audience   = "WebApplication",
+        expiration = Instant.now.getEpochSecond + Duration("30 minutes").toSeconds)
 
     val payloadJson: JsValue = Json.toJson(jwtPayload)
     payloadJson.toString()
