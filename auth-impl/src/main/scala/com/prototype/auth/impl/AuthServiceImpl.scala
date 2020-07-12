@@ -19,10 +19,10 @@ class AuthServiceImpl(userStorage: UserStorage)(implicit ec: ExecutionContext) e
 
   private def payload(user: User): String = {
     val jwtPayload = Payload(
-      issuer           = "qiuyang",
-      subject: String  = user.principal,
-      audience         = "WebApplication",
-      expiration: Long = Instant.now.getEpochSecond + Duration("30 minutes").toSeconds
+      issuer     = "qiuyang",
+      subject    = user.principal,
+      audience   = "WebApplication",
+      expiration = Instant.now.getEpochSecond + Duration("30 minutes").toSeconds
     )
 
     val payloadJson: JsValue = Json.toJson(jwtPayload)
