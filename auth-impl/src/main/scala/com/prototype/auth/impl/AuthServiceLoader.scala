@@ -1,4 +1,4 @@
-package com.prototype.auth
+package com.prototype.auth.impl
 
 import com.lightbend.lagom.scaladsl.api.ServiceLocator.NoServiceLocator
 import com.lightbend.lagom.scaladsl.api.{Descriptor, ServiceLocator}
