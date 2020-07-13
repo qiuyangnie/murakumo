@@ -11,7 +11,7 @@ val jwt = "com.pauldijou" %% "jwt-core" % "4.3.0"
 lazy val `murakumo` = (project in file("."))
   .aggregate(`hello-api`, `hello-impl`, `hello-stream-api`, `hello-stream-impl`)
   .aggregate(`auth-api`, `auth-impl`)
-  .aggregate(`discovery-api`)
+  .aggregate(`discovery-api`, `discovery-impl`)
 
 lazy val `hello-api` = (project in file("hello-api"))
   .settings(
@@ -79,5 +79,15 @@ lazy val `discovery-api` = (project in file("discovery-api"))
   .settings(
     libraryDependencies ++= Seq(
       lagomScaladslApi
+    )
+  )
+
+lazy val `discovery-impl` = (project in file("discovery-impl"))
+  .enablePlugins(LagomScala)
+  .settings(
+    libraryDependencies ++= Seq(
+      lagomScaladslKafkaBroker,
+      macwire,
+      scalaTest
     )
   )
