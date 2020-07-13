@@ -73,3 +73,5 @@ lazy val `auth-impl` = (project in file("auth-impl"))
   )
   .settings(lagomForkedTestSettings)
   .dependsOn(`auth-api`)
+
+lazy val `discovery-api` = (project in file("discovery-api"))
