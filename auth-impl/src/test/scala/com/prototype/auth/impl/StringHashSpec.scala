@@ -13,18 +13,20 @@ class StringHashSpec extends AnyFlatSpec {
     val username: String = "admin"
     val password: String = "farm1990M0O"
 
-    val passwordHash: Try[String] = StringHash.hashing(password)
-    println(passwordHash.get)
+    val passwordHash0: Try[String] = StringHash.hashing(password)
+    val passwordHash1: Try[String] = StringHash.hashing(password)
+    val passwordHash2: Try[String] = StringHash.hashing(password)
+    val passwordHash3: Try[String] = StringHash.hashing(password)
 
+    println(passwordHash0.get)
+    println(passwordHash1.get)
+    println(passwordHash2.get)
+    println(passwordHash3.get)
 
-    val passwordAgainst: String = "farm1990M0O"
-    val result: Try[Boolean] = passwordAgainst.isBcryptedSafeBounded(passwordHash.get)
-    println(result.get)
+    val passwordAgainst0: String = "farm1990M0O"
+    val result0: Try[Boolean] = passwordAgainst0.isBcryptedSafeBounded(passwordHash2.get)
+    println(result0.get)
 
-    val passwordAgainst1: String = "farm1990M0"
-    val result1: Try[Boolean] = passwordAgainst1.isBcryptedSafeBounded(passwordHash.get)
-    println(result1.get)
-    
   }
 
 }
