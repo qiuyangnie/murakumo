@@ -3,7 +3,7 @@ package com.prototype.auth.impl
 object Validation {
 
   def validateUsername(username: String): Boolean = {
-    val pattern: String = raw"\w{1,36}"
+    val pattern: String = "\\w{1,36}"
     username.matches( pattern )
   }
 
