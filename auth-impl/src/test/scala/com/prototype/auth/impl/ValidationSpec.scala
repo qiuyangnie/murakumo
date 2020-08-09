@@ -28,7 +28,7 @@ class ValidationSpec extends AnyFlatSpec {
     assert( Validation.validatePassword( "1234567" ) == false )
     assert( Validation.validatePassword( "adminadminadminadminadminadminadminaaadsfsdg" ) == true )
     assert( Validation.validatePassword( "12345678" ) == true )
-    assert( Validation.validatePassword( "        " ) == true )
+    assert( Validation.validatePassword( "        " ) == false )
   }
 
 } 
