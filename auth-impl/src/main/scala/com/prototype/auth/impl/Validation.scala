@@ -8,7 +8,7 @@ object Validation {
   }
 
   def validatePassword(password: String): Boolean = {
-    val pattern: String = raw".{8,}"
+    val pattern: String = raw"[.\S]{8,}"
     password.matches( pattern )
   }
 
