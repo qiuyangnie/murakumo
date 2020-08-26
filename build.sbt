@@ -8,6 +8,7 @@ val macwire = "com.softwaremill.macwire" %% "macros" % "2.3.3" % "provided"
 val scalaTest = "org.scalatest" %% "scalatest" % "3.1.1" % Test
 val jwt = "com.pauldijou" %% "jwt-core" % "4.3.0"
 val bcrypt = "com.github.t3hnar" %% "scala-bcrypt" % "4.3.0"
+val postgresql = "org.postgresql" % "postgresql" % "42.2.16.jre7"
 val slick = Seq(
   "com.typesafe.slick" %% "slick" % "3.3.2",
   "org.slf4j" % "slf4j-nop" % "1.6.4"
@@ -72,6 +73,7 @@ lazy val `auth-impl` = (project in file("auth-impl"))
       lagomScaladslPersistenceCassandra,
       lagomScaladslKafkaBroker,
       lagomScaladslTestKit,
+      postgresql,
       macwire,
       scalaTest,
       bcrypt
