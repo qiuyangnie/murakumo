@@ -71,7 +71,6 @@ lazy val `auth-impl` = (project in file("auth-impl"))
   .settings(
     libraryDependencies ++= Seq(
       lagomScaladslPersistenceCassandra,
-      lagomScaladslKafkaBroker,
       lagomScaladslTestKit,
       postgresql,
       macwire,
