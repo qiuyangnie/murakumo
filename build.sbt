@@ -11,7 +11,8 @@ val bcrypt = "com.github.t3hnar" %% "scala-bcrypt" % "4.3.0"
 val postgresql = "org.postgresql" % "postgresql" % "42.2.16.jre7"
 val slick = Seq(
   "com.typesafe.slick" %% "slick" % "3.3.2",
-  "org.slf4j" % "slf4j-nop" % "1.6.4"
+  "org.slf4j" % "slf4j-nop" % "1.6.4",
+  "com.typesafe.slick" %% "slick-hikaricp" % "3.3.2"
 )
 
 lazy val `murakumo` = (project in file("."))

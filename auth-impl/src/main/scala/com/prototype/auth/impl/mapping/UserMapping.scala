@@ -1,4 +1,4 @@
-package com.getvisibility.auth.impl.mapping
+package com.prototype.auth.impl.mapping
 
 import play.api.Configuration
 
@@ -20,5 +20,7 @@ class UserMapping(db: Database, config: Configuration)(implicit ex: ExecutionCon
   }
 
   private val users: TableQuery[UserMapping.this.Users] = TableQuery[Users]
+
+  def setup() = db.run(DBIO.seq(users.schema.create))
 
 }
