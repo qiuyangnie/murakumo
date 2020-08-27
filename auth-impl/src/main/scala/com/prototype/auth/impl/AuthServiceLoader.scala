@@ -7,7 +7,7 @@ import com.lightbend.lagom.scaladsl.server.{LagomApplication, LagomApplicationCo
 import com.softwaremill.macwire.wire
 import com.prototype.auth.api.AuthService
 import com.prototype.auth.impl.{AuthServiceImpl, UserStorage, UserStorageImpl}
-import com.prototype.auth.impl.mapping.UserMapping
+import com.prototype.auth.impl.mapping.Mapping
 import org.slf4j.{Logger, LoggerFactory}
 import play.api.libs.ws.ahc.AhcWSComponents
 import slick.jdbc.JdbcBackend.Database
@@ -30,10 +30,10 @@ abstract class AuthServiceApplication(context: LagomApplicationContext)
     lazy val db: Database = Database.forConfig("db.default")
     lazy val log: Logger  = LoggerFactory.getLogger(classOf[AuthServiceImpl])
     lazy val userStorage: UserStorage = UserStorageImpl
-    lazy val userMapping: UserMapping = wire[UserMapping]
-    userMapping.setup().onComplete {
-      case Success(_)         => log.info("USERS table has been successfully created")
-      case Failure(exception) => log.error("USERS table could not be created", exception)
+    lazy val mapping: Mapping = wire[Mapping]
+    mapping.setup().onComplete {
+      case Success(_)         => log.info("USERS and ROLES tables have been successfully created")
+      case Failure(exception) => log.error("USERS and ROLES table could not be created", exception)
     }
 
     // Bind the service that this server provides
