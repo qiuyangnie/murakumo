@@ -10,7 +10,8 @@ import com.softwaremill.macwire.wire
 import play.api.libs.ws.ahc.AhcWSComponents
 
 import slick.jdbc.JdbcBackend.Database
-
+import org.slf4j.{Logger, LoggerFactory}
+import scala.util.{Success, Failure}
 import com.prototype.auth.api.AuthService
 import com.prototype.auth.impl.{AuthServiceImpl, UserStorage, UserStorageImpl}
 import com.prototype.auth.impl.mapping.UserMapping
@@ -33,6 +34,11 @@ abstract class AuthServiceApplication(context: LagomApplicationContext)
   lazy val userStorage: UserStorage = UserStorageImpl
   lazy val db: Database = Database.forConfig("db.default")
   lazy val userMapping: UserMapping = wire[UserMapping]
+  lazy val log: Logger = LoggerFactory.getLogger(classOf[AuthServiceImpl])
+  userMapping.setup().onComplete {
+    case Success(_)         => log.info("USERS table has been successfully created")
+    case Failure(exception) => log.error("USERS table could not be created", exception)
+  }
 
   // Bind the service that this server provides
   override def lagomServer: LagomServer = serverFor[AuthService](wire[AuthServiceImpl])
