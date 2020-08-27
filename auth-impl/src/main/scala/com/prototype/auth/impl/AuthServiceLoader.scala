@@ -32,8 +32,8 @@ abstract class AuthServiceApplication(context: LagomApplicationContext)
     lazy val userStorage: UserStorage = UserStorageImpl
     lazy val mapping: Mapping = wire[Mapping]
     mapping.setup().onComplete {
-      case Success(_)         => log.info("USERS, ROLES and ASSIGNMENTS tables have been successfully created")
-      case Failure(exception) => log.error("USERS, ROLES and ASSIGNMENTS table could not be created", exception)
+      case Success(_)         => log.info("tables have been successfully created")
+      case Failure(exception) => log.error("tables could not be created", exception)
     }
 
     // Bind the service that this server provides

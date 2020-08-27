@@ -23,21 +23,37 @@ class Mapping(db: Database, config: Configuration)(implicit ex: ExecutionContext
     override def * = (id, role)
   }
 
-  private final class Assignments(tag: Tag) extends Table[((Int, Int))](tag, "ASSIGNMENTS") {
+  private final class Permissions(tag: Tag) extends Table[(Int, String)](tag, "PERMISSIONS") {
+    def id: Rep[Int]            = column[Int]("ID", O.PrimaryKey, O.Unique, O.AutoInc)
+    def permission: Rep[String] = column[String]("PERMISSION", O.Unique)
+    override def * = (id ,permission)
+  }
+
+  private final class Assignments(tag: Tag) extends Table[(Int, Int)](tag, "ASSIGNMENTS") {
     def userID: Rep[Int] = column[Int]("USER_ID")
     def roleID: Rep[Int] = column[Int]("ROLE_ID")
     def user = foreignKey("USER_FK", userID, users)(_.id, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Cascade)
     def role = foreignKey("ROLE_FK", roleID, roles)(_.id, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Cascade)
-    override def * = (userID, roleID) 
+    override def * = (userID, roleID)
+  }
+
+  private final class Authorizations(tag: Tag) extends Table[(Int, Int)](tag, "AUTHORIZATIONS") {
+    def roleID: Rep[Int]       = column[Int]("ROLE_ID")
+    def permissionID: Rep[Int] = column[Int]("PERMISSION_ID")
+    def role       = foreignKey("ROLE_FK", roleID, roles)(_.id, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Cascade)
+    def permission = foreignKey("PERMISSION_FK", permissionID, permissions)(_.id, onUpdate=ForeignKeyAction.Restrict, onDelete=ForeignKeyAction.Cascade)
+    override def * = (roleID, permissionID)
   }
 
   // Table query:
   private val users: TableQuery[Mapping.this.Users] = TableQuery[Users]
   private val roles: TableQuery[Mapping.this.Roles] = TableQuery[Roles]
+  private val permissions: TableQuery[Mapping.this.Permissions] = TableQuery[Permissions]
   private val assignments: TableQuery[Mapping.this.Assignments] = TableQuery[Assignments]
+  private val authorizations: TableQuery[Mapping.this.Authorizations] = TableQuery[Authorizations]
 
   def setup() = db.run(DBIO.seq(
-    (users.schema ++ roles.schema ++ assignments.schema).create
+    (users.schema ++ roles.schema ++ assignments.schema ++ permissions.schema ++ authorizations.schema).create
   ))
 
 }
