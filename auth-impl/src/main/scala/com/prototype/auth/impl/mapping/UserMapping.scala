@@ -1,12 +1,10 @@
 package com.prototype.auth.impl.mapping
 
 import play.api.Configuration
-
 import slick.jdbc.JdbcBackend.Database
 import slick.lifted.Tag
 import slick.lifted.ProvenShape
 import slick.jdbc.PostgresProfile.api._
-
 import scala.concurrent.ExecutionContext
 
 // Functional Relational Mapping
