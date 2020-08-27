@@ -10,9 +10,9 @@ import scala.concurrent.ExecutionContext
 class RoleMapping(db: Database, config: Configuration)(implicit ex: ExecutionContext) {
 
   private final class Roles(tag: Tag) extends Table[(Int, String)](tag, "ROLES") {
-    def id: Rep[Int]          = column[Int]("ID", O.PrimaryKey)
-    def function: Rep[String] = column[String]("Function")
-    override def * = (id, function)
+    def id: Rep[Int]          = column[Int]("ID", O.PrimaryKey, O.Unique, O.AutoInc)
+    def role: Rep[String] = column[String]("ROLE", O.Unique)
+    override def * = (id, role)
   }
 
   private val roles: TableQuery[RoleMapping.this.Roles] = TableQuery[Roles]
