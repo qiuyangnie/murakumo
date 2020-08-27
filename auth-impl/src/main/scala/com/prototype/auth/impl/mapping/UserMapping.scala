@@ -11,8 +11,8 @@ import scala.concurrent.ExecutionContext
 class UserMapping(db: Database, config: Configuration)(implicit ex: ExecutionContext) {
 
   private final class Users(tag: Tag) extends Table[(Int, String, String)](tag, "USERS") {
-    def id: Rep[Int]          = column[Int]("ID", O.PrimaryKey)
-    def username: Rep[String] = column[String]("USERNAME")
+    def id: Rep[Int]          = column[Int]("ID", O.PrimaryKey, O.Unique, O.AutoInc)
+    def username: Rep[String] = column[String]("USERNAME", O.Unique)
     def password: Rep[String] = column[String]("PASSWORD")
     override def * = (id, username, password)
   }
