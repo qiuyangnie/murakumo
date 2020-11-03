@@ -5,10 +5,13 @@ import com.lightbend.lagom.scaladsl.api.{Descriptor, ServiceLocator}
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import com.lightbend.lagom.scaladsl.server.{LagomApplication, LagomApplicationContext, LagomApplicationLoader, LagomServer}
 import com.softwaremill.macwire.wire
-import play.api.libs.ws.ahc.AhcWSComponents
-
 import com.prototype.auth.api.AuthService
 import com.prototype.auth.impl.{AuthServiceImpl, UserStorage, UserStorageImpl}
+import com.prototype.auth.impl.mapping.Mapping
+import org.slf4j.{Logger, LoggerFactory}
+import play.api.libs.ws.ahc.AhcWSComponents
+import slick.jdbc.JdbcBackend.Database
+import scala.util.{Success, Failure}
 
 class AuthServiceLoader extends LagomApplicationLoader {
   override def load(context: LagomApplicationContext): LagomApplication =
@@ -24,9 +27,15 @@ class AuthServiceLoader extends LagomApplicationLoader {
 
 abstract class AuthServiceApplication(context: LagomApplicationContext)
   extends LagomApplication(context) with AhcWSComponents {
+    lazy val db: Database = Database.forConfig("db.default")
+    lazy val log: Logger  = LoggerFactory.getLogger(classOf[AuthServiceImpl])
+    lazy val userStorage: UserStorage = UserStorageImpl
+    lazy val mapping: Mapping = wire[Mapping]
+    mapping.setup().onComplete {
+      case Success(_)         => log.info("tables have been successfully created")
+      case Failure(exception) => log.error("tables could not be created", exception)
+    }
 
-  lazy val userStorage: UserStorage = UserStorageImpl
-
-  // Bind the service that this server provides
-  override def lagomServer: LagomServer = serverFor[AuthService](wire[AuthServiceImpl])
+    // Bind the service that this server provides
+    override def lagomServer: LagomServer = serverFor[AuthService](wire[AuthServiceImpl])
 }
